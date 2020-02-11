@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 style="text-align: center;">Total Amount</h2>
+            
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col"> # </th>
+                        <th scope="col"> Name </th>
+                        <th scope="col"> Credit </th>
+                        <th scope="col"> Debit </th>
+                        <th scope="col"> Debt </th>
+                        <th scope="col"> Lend </th>
+                        <th scope="col"> Date </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of data; let pos = index">
+                        <th scope="row"> {{ pos }} </th>
+                        <td> {{ record.name }} </td>
+                        
+                        <td *ngIf="record.credit"> {{ record.amount }} </td>
+                        <td *ngIf="!record.credit">  </td>
+                        
+                        <td *ngIf="record.debit"> {{ record.amount }} </td>
+                        <td *ngIf="!record.debit">  </td>
+                        
+                        <td *ngIf="record.debt"> {{ record.amount }} </td>
+                        <td *ngIf="!record.debt">  </td>
+                        
+                        <td *ngIf="record.lend"> {{ record.amount }} </td>
+                        <td *ngIf="!record.lend">  </td>
+                        
+                        <td> {{ record.date }} </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3> Total: <span> {{ total }} </span></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3">
+            <h3> Total Credited: <span> {{ creditAmount }} </span></h3>
+        </div>
+        <div class="col-xs-3">
+            <h3> Total Debited: <span> {{ debitedAmount }} </span></h3>
+        </div>
+        <div class="col-xs-3">
+            <h3> Total Lended: <span> {{ lendedAmount }} </span></h3>
+        </div>
+        <div class="col-xs-3">
+            <h3> Total Debted: <span> {{ debtedAmount }} </span></h3>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span class="navbar-brand-span"> Accountability </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 account-component">
+      <app-total [data]="totalSheetData"></app-total>
+    </div>
+  </div>
+</div>
+ 
+<div class="container">
+  <div class="row">
+      <div class="col-xs-6 account-component">
+        <app-credit [data]="creditSheetData"></app-credit>
+      </div>
+      <div class="col-xs-6 account-component">
+        <app-debit [data]="debitSheetData"></app-debit>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+      <div class="col-xs-6 account-component">
+        <app-debt [data]="debtSheetData"></app-debt>
+      </div>
+      <div class="col-xs-6 account-component">
+        <app-lended [data]="lendedSheetData"></app-lended>
+      </div>
+  </div>
+</div>
+
+<app-data-entry (transitData)="dataHandle($event)"></app-data-entry>
