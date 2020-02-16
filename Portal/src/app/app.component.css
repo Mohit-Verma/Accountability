@@ -1,0 +1,5 @@
+div.containers {
+    overflow: -moz-hidden-unscrollable;
+    max-height: 300px;
+    width: 100%;
+}

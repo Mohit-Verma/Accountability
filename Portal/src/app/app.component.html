@@ -1,40 +1,32 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard/total']">
         <span class="navbar-brand-span"> Accountability </span>
       </a>
+      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard/credit']">
+        <span class="navbar-brand-span"> Credited Amount </span>
+      </a>
+      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard/debit']">
+        <span class="navbar-brand-span"> Debited Amount </span>
+      </a>
+      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard/lend']">
+        <span class="navbar-brand-span"> Lended Amount </span>
+      </a>
+      <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard/debt']">
+        <span class="navbar-brand-span"> Debted Amount </span>
+      </a>
+      <!-- <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/addTransaction']">
+        <span class="navbar-brand-span"> Add Transaction </span>
+      </a> -->
     </div>
   </div>
 </nav>
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 account-component">
-      <app-total [data]="totalSheetData"></app-total>
+    <div class="col-xs-12 containers">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
- 
-<div class="container">
-  <div class="row">
-      <div class="col-xs-6 account-component">
-        <app-credit [data]="creditSheetData"></app-credit>
-      </div>
-      <div class="col-xs-6 account-component">
-        <app-debit [data]="debitSheetData"></app-debit>
-      </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-      <div class="col-xs-6 account-component">
-        <app-debt [data]="debtSheetData"></app-debt>
-      </div>
-      <div class="col-xs-6 account-component">
-        <app-lended [data]="lendedSheetData"></app-lended>
-      </div>
-  </div>
-</div>
-
-<app-data-entry (transitData)="dataHandle($event)"></app-data-entry>

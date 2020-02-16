@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { AccountUtils } from '../utils/accountability-utils';
+import { Component } from '@angular/core';
+import { Account } from '../utils/account-utils';
+import { AccountService } from '../utils/account-service';
+import { Router } from '@angular/router';
+import { AmountService } from '../utils/amount-service';
 
 @Component({
   selector: 'app-total',
@@ -8,32 +11,30 @@ import { AccountUtils } from '../utils/accountability-utils';
 })
 export class TotalComponent {
 
-  _data: any;
-  @Input()
-  get data() {
-    return this._data;
-  }
-  set data(data) {
-    this._data = data;
-    this.update();
-  }
-
   title: string = 'Total Amount';
-  amounts: {credited: number, debited: number, lended: number, debted: number, total: number};
+  data: Array<Account> = [];
   total: number;
-  creditAmount: number;
-  debitedAmount: number;
-  lendedAmount: number;
-  debtedAmount: number;
-  
-  constructor(private accUtils: AccountUtils) {}
-  
-  private update() {    
-    this.amounts = this.accUtils.getTotalAmount(this.data);
-    this.total = this.amounts.total;
-    this.creditAmount = this.amounts.credited;
-    this.debitedAmount = this.amounts.debited;
-    this.lendedAmount = this.amounts.lended;
-    this.debtedAmount = this.amounts.debted;
+
+  constructor(
+    private accountService: AccountService,
+    private amountService: AmountService,
+    private router: Router
+  ) {
+    this.data = this.accountService.getTotalAmountData();
+    this.total = this.amountService.getTotalAmount();
+    this.accountService.onUpdateEvent.subscribe((type: string) => {
+      if(type != ''){
+        // console.log(`data updated with value: ${JSON.stringify(this.accountService.getCreditAmountData())}`);
+        this.data = this.accountService.getTotalAmountData();
+        this.total = this.amountService.getTotalAmount();
+      }
+    });
+  }
+  addTransaction(){
+    this.router.navigate(['/addTransaction'], {
+      queryParams: {
+        type: ''
+      }
+    });
   }
 }

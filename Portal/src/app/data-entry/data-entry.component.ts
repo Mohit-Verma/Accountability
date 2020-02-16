@@ -1,22 +1,76 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Account } from '../utils/account-utils';
+import { AccountService } from '../utils/account-service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-data-entry',
   templateUrl: './data-entry.component.html',
   styleUrls: ['./data-entry.component.css']
 })
-export class DataEntryComponent {
+export class DataEntryComponent implements OnInit, OnDestroy {
+  @ViewChild('title') title: ElementRef;
+  @ViewChild('amount') amount: ElementRef;
+  @ViewChild('date') date: ElementRef;
+  @ViewChild('comment') comment: ElementRef;
 
-  @ViewChild('name', {static: false}) name: ElementRef;
-  @ViewChild('amount', {static: false}) amount: ElementRef;
-  @ViewChild('date', {static: false}) date: ElementRef;
-  @Output() transitData = new EventEmitter<{name: string, amount: number, date: string, type: string}>();
+  private componentSubs: Subscription;
+  action: any = {
+    credit: false,
+    debit: false,
+    debt: false,
+    lend: false
+  }
+  constructor(private accountService: AccountService, private route: ActivatedRoute) {}
+  ngOnInit(): void {
+    this.componentSubs = this.route.queryParams.subscribe((params: Params) => {
+      switch(params['type']) {
+        case 'credit': {
+          this.action.debit = true;
+          this.action.debt = true;
+          this.action.lend = true;
+          this.action.credit = false;
+          break;
+        }
+        case 'debit': {
+          this.action.debt = true;
+          this.action.lend = true;
+          this.action.credit = true;
+          this.action.debit = false;
+          break;
+        }
+        case 'debt': {
+          this.action.lend = true;
+          this.action.credit = true;
+          this.action.debit = true;
+          this.action.debt = false;
+          break;
+        }
+        case 'lend': {
+          this.action.credit = true;
+          this.action.debit = true;
+          this.action.debt = true;
+          this.action.lend = false;
+          break;
+        }
+        default:{
+          break
+        }
+      }
+      // console.log(JSON.stringify(this.action) + " : " + params['type']);
+    });
+  }
+  ngOnDestroy() {
+    this.componentSubs.unsubscribe();
 
-  onSubmitData(transactionType: string){
-    let nameValue = this.name.nativeElement.value.toString().trim();
+  }
+  submitData(transactionType: string){
+    let titleValue = this.title.nativeElement.value.toString().trim();
     let amountValue = this.amount.nativeElement.value;
     let dateValue = this.date.nativeElement.value;
-    if(nameValue == ''){
+    let commentValue = this.comment.nativeElement.value.toString().trim();
+    if(titleValue == ''){
       alert('Please enter the Name');
       return;
     }
@@ -28,19 +82,13 @@ export class DataEntryComponent {
       alert('Please enter the Date with Time');
       return;
     }
-
-    let data = {
-      name: nameValue,
-      amount: parseFloat(amountValue),
-      date: dateValue,
-      type: transactionType
-    }
-    this.transitData.emit(data);
+    let account = new Account(titleValue, parseInt(amountValue), 0, transactionType, dateValue, commentValue);
+    this.accountService.updateAccountData(account);
   }
-  onClear(){
-    this.name.nativeElement.value = null;
+  clearForm() {
+    this.title.nativeElement.value = null;
     this.amount.nativeElement.value = null;
     this.date.nativeElement.value = null;
+    this.comment.nativeElement.value = null;
   }
-
 }

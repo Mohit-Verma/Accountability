@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { AccountUtils } from '../utils/accountability-utils';
+import { Component } from '@angular/core';
+import { Account } from '../utils/account-utils';
+import { AccountService } from '../utils/account-service';
+import { Router } from '@angular/router';
+import { AmountService } from '../utils/amount-service';
 
 @Component({
   selector: 'app-debt',
@@ -7,23 +10,31 @@ import { AccountUtils } from '../utils/accountability-utils';
   styleUrls: ['./debt.component.css']
 })
 export class DebtComponent {
-  title: string = 'Debt Balance';
-  _data: any;
-  
-  @Input()
-  get data(){
-    return this._data;
-  }
-  set data(data){
-    this._data = data;
-    this.update();
-  }
-  
-  total: number = 0;
 
-  constructor(private accUtils: AccountUtils) {}
-  
-  private update(){
-    this.total = this.accUtils.getTotal(this.data);
+  title: string = 'Debted Balance';
+  data: Array<Account> = [];
+  total: number;
+
+  constructor(
+    private accountService: AccountService,
+    private amountService: AmountService,
+    private router: Router
+  ) {
+    this.data = accountService.getDebtAmountData();
+    this.total = amountService.getTotalDebtedAmount();
+    this.accountService.onUpdateEvent.subscribe((type: string) => {
+      if(type === 'debt'){
+        // console.log(`data updated with value: ${JSON.stringify(this.accountService.getCreditAmountData())}`);
+        this.data = this.accountService.getCreditAmountData();
+      }
+    });
   }
+  addTransaction(){
+    this.router.navigate(['/addTransaction'], {
+      queryParams: {
+        type: 'debt'
+      }
+    });
+  }
+
 }

@@ -1,67 +1,52 @@
 <div class="container">
     <div class="row">
+        <div class="col-xs-8">
+            <h2> {{ title }} </h2>
+        </div>
+        <div class="col-xs-4">
+            <h2 style="text-decoration: underline;"> {{ total }} </h2>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
-            <h2 style="text-align: center;">Total Amount</h2>
-            
             <table class="table">
                 <thead class="thead-light">
                     <tr>
                         <th scope="col"> # </th>
-                        <th scope="col"> Name </th>
+                        <th scope="col"> Title </th>
                         <th scope="col"> Credit </th>
                         <th scope="col"> Debit </th>
-                        <th scope="col"> Debt </th>
                         <th scope="col"> Lend </th>
+                        <th scope="col"> Debt </th>
+                        <th scope="col"> Net Balance </th>
+                        <th scope="col"> Comment </th>
                         <th scope="col"> Date </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let record of data; let pos = index">
-                        <th scope="row"> {{ pos }} </th>
-                        <td> {{ record.name }} </td>
-                        
-                        <td *ngIf="record.credit"> {{ record.amount }} </td>
-                        <td *ngIf="!record.credit">  </td>
-                        
-                        <td *ngIf="record.debit"> {{ record.amount }} </td>
-                        <td *ngIf="!record.debit">  </td>
-                        
-                        <td *ngIf="record.debt"> {{ record.amount }} </td>
-                        <td *ngIf="!record.debt">  </td>
-                        
-                        <td *ngIf="record.lend"> {{ record.amount }} </td>
-                        <td *ngIf="!record.lend">  </td>
-                        
-                        <td> {{ record.date }} </td>
+                    <tr *ngFor="let account of data; let pos = index;">
+                        <td scope="row"> {{ pos }} </td>
+                        <td scope="row"> {{ account.getTitle() }} </td>
+                        <td scope="row" *ngIf="account.type=='credit'; then showAmount; else hideAmount;"> credit </td>
+                        <td scope="row" *ngIf="account.type=='debit'; then showAmount; else hideAmount;">  </td>
+                        <td scope="row" *ngIf="account.type=='lend'; then showAmount; else hideAmount;">  </td>
+                        <td scope="row" *ngIf="account.type=='debt'; then showAmount; else hideAmount;">  </td>
+                        <td scope="row"> {{ account.getNetAmount() }} </td>
+                        <td scope="row"> {{ account.getComment() }} </td>
+                        <td scope="row"> {{ account.getDate() }} </td>
+                        <ng-template #showAmount><td scope="row"> {{ account.getAmount() }} </td></ng-template>
+                        <ng-template #hideAmount> <td></td> </ng-template>
                     </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
-            <h3> Total: <span> {{ total }} </span></h3>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-3">
-            <h3> Total Credited: <span> {{ creditAmount }} </span></h3>
-        </div>
-        <div class="col-xs-3">
-            <h3> Total Debited: <span> {{ debitedAmount }} </span></h3>
-        </div>
-        <div class="col-xs-3">
-            <h3> Total Lended: <span> {{ lendedAmount }} </span></h3>
-        </div>
-        <div class="col-xs-3">
-            <h3> Total Debted: <span> {{ debtedAmount }} </span></h3>
+        <div class="col-xs-2">
+            <input type="button" value="Add Transaction" class="btn btn-success" (click)="addTransaction()">
         </div>
     </div>
 </div>

@@ -1,19 +1,31 @@
-<div class="container account-data-entry">
-  <div class="row">
-    <div class="col-xs-12"><h2> Data Entry Section </h2></div>
-    <div>
-      <div class="col-xs-6 input-component">
-        <input class="form-control" type="text" #name placeholder="Name of person/shop/etc" data-toggle="tooltip" data-placement="top" title="Enter the Person name or Shop name as per convinient"><br>
-        <input class="form-control" type="number" #amount placeholder="Amount" data-toggle="tooltip" data-placement="top" title="Enter the Amount"><br>
-        <input class="form-control" type="datetime-local" #date data-toggle="tooltip" data-placement="top" title="Add Date/Time value as DD-MM-YYYY HH:MM"><br>
-      </div>
-      <div class="col-xs-6 input-component action-buttons">
-        <button type="button" class="btn btn-default" (click)="onClear()"> Clear </button><br>
-        <button type="button" class="btn btn-success" (click)="onSubmitData('credited')"> Credited </button>
-        <button type="button" class="btn btn-danger" (click)="onSubmitData('debited')"> Debited </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmitData('lended')"> Lended </button>
-        <button type="button" class="btn btn-warning" (click)="onSubmitData('debted')"> Debted </button><br>
-      </div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <input type="text" #title class="form-control" placeholder=" Enter the Title/Name"><br>
+            <input type="number" #amount class="form-control" placeholder="Enter the amount"><br>
+            <input type="datetime-local" #date class="form-control" placeholder="Enter the Date with Time"><br>
+            <input type="text" #comment class="form-control" placeholder="Comments, if any!"><br>
+        </div>
+        <div class="col-xs-1"></div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2">
+            <input type="button" [disabled]="action.credit" class="btn btn-primary" (click)="submitData('credit')" value="Credited"/>
+        </div>
+        <div class="col-xs-2">
+            <input type="button" [disabled]="action.debit" class="btn btn-warning" (click)="submitData('debit')" value="Debited"/>
+        </div>
+        <div class="col-xs-2">
+            <input type="button" [disabled]="action.lend"  class="btn btn-info" (click)="submitData('lend')" value="Lended"/>
+        </div>
+        <div class="col-xs-2">
+            <input type="button" [disabled]="action.debt"  class="btn btn-danger" (click)="submitData('debt')" value="Debted"/>
+        </div>
+        <div class="col-xs-2">
+            <input type="button"  class="btn btn-default" (click)="clearForm()" value="Clear"/>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
 </div>

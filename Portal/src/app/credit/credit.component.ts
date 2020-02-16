@@ -1,29 +1,40 @@
-import { Component, Input } from '@angular/core';
-import { AccountUtils } from '../utils/accountability-utils';
+import { Component } from '@angular/core';
+import { AccountService } from '../utils/account-service';
+import { Account } from "../utils/account-utils";
+import { Router } from '@angular/router';
+import { AmountService } from '../utils/amount-service';
 
 @Component({
   selector: 'app-credit',
   templateUrl: './credit.component.html',
   styleUrls: ['./credit.component.css']
 })
-export class CreditComponent{
+export class CreditComponent {
+
   title: string = 'Credited Balance';
-  _data: any;
-  
-  @Input()
-    get data(){
-      return this._data;
-    }
-    set data(data){
-      this._data = data;
-      this.update();
-    }
-  
-  total: number = 0;
+  data: Array<Account> = [];
+  total: number;
 
-  constructor(private accUtils: AccountUtils) {}
-
-  private update(){
-    this.total = this.accUtils.getTotal(this.data);
+  constructor(
+    private accountService: AccountService,
+    private amountService: AmountService,
+    private router: Router
+  ) {
+    this.data = accountService.getCreditAmountData();
+    this.total = amountService.getTotalCreditedAmount();
+    this.accountService.onUpdateEvent.subscribe((type: string) => {
+      if(type === 'credit'){
+        // console.log(`data updated with value: ${JSON.stringify(this.accountService.getCreditAmountData())}`);
+        this.data = this.accountService.getCreditAmountData();
+      }
+    });
   }
+  addTransaction(){
+    this.router.navigate(['/addTransaction'], {
+      queryParams: {
+        type: 'credit'
+      }
+    });
+  }
+
 }

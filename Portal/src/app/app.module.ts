@@ -10,7 +10,19 @@ import { DebitComponent } from './debit/debit.component';
 import { TotalComponent } from './total/total.component';
 import { LendedComponent } from './lended/lended.component';
 import { DebtComponent } from './debt/debt.component';
-import { AccountUtils } from './utils/accountability-utils';
+import { AmountService } from './utils/amount-service';
+import { AccountService } from './utils/account-service';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {path: '', component: TotalComponent},
+  {path: 'dashboard/total', component: TotalComponent},
+  {path: 'dashboard/credit', component: CreditComponent},
+  {path: 'dashboard/debit', component: DebitComponent},
+  {path: 'dashboard/lend', component: LendedComponent},
+  {path: 'dashboard/debt', component: DebtComponent},
+  {path: 'addTransaction', component: DataEntryComponent},
+];
 
 @NgModule({
   declarations: [
@@ -26,8 +38,9 @@ import { AccountUtils } from './utils/accountability-utils';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [AccountUtils],
+  providers: [AmountService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

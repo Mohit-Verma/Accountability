@@ -1,7 +1,9 @@
-.btn{
-    margin: 2%;
-}
-div.account-data-entry {
-    border: 2px #333 dotted;
+div.container {
+    width: 100%;
+    text-align: center;
+    border: dotted grey 2px;
     padding: 1%;
+}
+button {
+    width: 100%;
 }
