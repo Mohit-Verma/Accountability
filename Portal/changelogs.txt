@@ -1,0 +1,26 @@
+change(11/02/2020) {
+    01) Initial commit
+    02) Based on Angular 8
+    03) Bootstrap @3.4.1
+    04) Used @Input and @Output for sharing the data
+    05) All the Componenets on the same page
+    06) Input form on the same main page
+}
+
+change(17/02/2020) {
+    01) Updated the base to Angular 9
+    02) Bootstrap @v3.4.1
+    03) Added Services and utility files
+    04) Removed @Input and @Output. Instead using services
+    05) Using Observables for listening changes and updating them respectively
+    06) Added routing functionality
+    07) All components are seperated based on routing
+    08) Added items to navbar for accessing different components
+    09) Created classes in the services instead of using just objects
+    10) Change in logic
+    11) Added extra column for displaying net balance after each transaction
+}
+
+change(17/02/2020) {
+    01) Added changelogs
+}
