@@ -31,7 +31,7 @@ export class LendedComponent {
     });
   }
   addTransaction(){
-    this.router.navigate(['/addTransaction'], {
+    this.router.navigate(['/transaction'], {
       queryParams: {
         type: 'lend'
       }

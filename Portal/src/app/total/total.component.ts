@@ -31,7 +31,7 @@ export class TotalComponent {
     });
   }
   addTransaction(){
-    this.router.navigate(['/addTransaction'], {
+    this.router.navigate(['/transaction'], {
       queryParams: {
         type: ''
       }

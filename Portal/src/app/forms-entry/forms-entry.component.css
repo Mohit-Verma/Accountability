@@ -1,0 +1,10 @@
+input.btn {
+   margin: 1%;
+   width: 100%;
+}
+input.ng-invalid.ng-touched {
+   border: red solid 1px;
+}
+div.radio.form-control {
+   color: white;
+}

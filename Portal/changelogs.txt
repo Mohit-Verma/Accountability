@@ -19,8 +19,11 @@ change(17/02/2020) {
     09) Created classes in the services instead of using just objects
     10) Change in logic
     11) Added extra column for displaying net balance after each transaction
+    12) Added changelogs
 }
 
-change(17/02/2020) {
-    01) Added changelogs
+change(28/02/2020) {
+    01) Added form in transaction entry page
+    02) UI change for transaction entry page
+    03) Added '.net amount' column in Total Section
 }

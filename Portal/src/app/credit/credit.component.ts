@@ -30,7 +30,7 @@ export class CreditComponent {
     });
   }
   addTransaction(){
-    this.router.navigate(['/addTransaction'], {
+    this.router.navigate(['/transaction'], {
       queryParams: {
         type: 'credit'
       }

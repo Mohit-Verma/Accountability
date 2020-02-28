@@ -12,17 +12,8 @@ import { LendedComponent } from './lended/lended.component';
 import { DebtComponent } from './debt/debt.component';
 import { AmountService } from './utils/amount-service';
 import { AccountService } from './utils/account-service';
-import { Routes, RouterModule } from '@angular/router';
-
-const routes: Routes = [
-  {path: '', component: TotalComponent},
-  {path: 'dashboard/total', component: TotalComponent},
-  {path: 'dashboard/credit', component: CreditComponent},
-  {path: 'dashboard/debit', component: DebitComponent},
-  {path: 'dashboard/lend', component: LendedComponent},
-  {path: 'dashboard/debt', component: DebtComponent},
-  {path: 'addTransaction', component: DataEntryComponent},
-];
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FormsEntryComponent } from './forms-entry/forms-entry.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +23,15 @@ const routes: Routes = [
     DebitComponent,
     TotalComponent,
     LendedComponent,
-    DebtComponent
+    DebtComponent,
+    PageNotFoundComponent,
+    FormsEntryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    AppRoutingModule
   ],
   providers: [AmountService, AccountService],
   bootstrap: [AppComponent]

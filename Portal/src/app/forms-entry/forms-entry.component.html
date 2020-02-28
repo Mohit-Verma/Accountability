@@ -1,0 +1,45 @@
+<div class="data-entry-form">
+    <form #formData="ngForm" (ngSubmit)="submitData(formData.value)">
+        <div #formHTML class="container">
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" name="title" placeholder=" Enter the Title/Name" ngModel required><br>
+                    <input type="number" class="form-control" name="amount" placeholder="Enter the amount" ngModel required><br>
+                </div>
+                <div class="col-xs-5">
+                    <input type="datetime-local" class="form-control" name="date" placeholder="Enter the Date with Time" ngModel required><br>
+                    <input type="text" class="form-control" name="comment" placeholder="Comments, if any!" ngModel required><br>
+                </div>
+                <div class="col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-2" *ngFor="let type of transactionType">
+                    <div class="radio form-control" [style.background-color]="type.color">
+                        <div *ngIf="type.enable; then showOption; else hideOption"></div>
+                        <ng-template #showOption>
+                            <label>
+                                <input type="radio" name="type" [value]="type.type" ngModel required> {{ type.type }}
+                            </label>
+                        </ng-template>
+                        <ng-template #hideOption>
+                            <label> {{ type.type }} </label>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-xs-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-2">
+                    <input type="submit" [disabled]="formData.untouched || formData.invalid" class="btn btn-primary submit-button" value="Submit"/><br>
+                </div>
+                <div class="col-xs-2">
+                    <input type="button" [disabled]="formData.untouched" class="btn btn-default clear-button" (click)="clearForm()" value="Clear"/><br>
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+        </div>
+    </form>
+</div>
